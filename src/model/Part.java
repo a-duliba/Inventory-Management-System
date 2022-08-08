@@ -1,10 +1,13 @@
 package model;
 
 public abstract class Part {
+
+    //PRIVATE VARIABLES
     private int id, stock, min, max;
     private String name;
     private double price;
 
+    //CONSTRUCTOR
     public Part(int id, int stock, int min, int max, String name, double price) {
         this.id = id;
         this.stock = stock;
@@ -14,6 +17,7 @@ public abstract class Part {
         this.price = price;
     }
 
+    //SETTERS - GETTERS
     public int getId() {
         return id;
     }

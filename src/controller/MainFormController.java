@@ -91,12 +91,6 @@ public class MainFormController implements Initializable {
                 alertInfo.setContentText("You must use either only numbers or only letters when searching for parts");
                 alertInfo.showAndWait();
                 break;
-            case 4:
-                alertInfo.setTitle("Error");
-                alertInfo.setHeaderText("Product was not highlighted");
-                alertInfo.setContentText("You must use either only numbers or only letters when searching for products");
-                alertInfo.showAndWait();
-                break;
         }
     }
 
@@ -134,10 +128,6 @@ public class MainFormController implements Initializable {
             String searched = partSearchTxt.getText();
             ObservableList<Part> part = Inventory.lookupPart(searched);
             partsTable.setItems(part);
-        }
-        //Informs and instructs the user of their error.
-        if(selectedPart == null) {
-            alertDisplays(3);
         }
     }
 
@@ -184,7 +174,6 @@ public class MainFormController implements Initializable {
                 Inventory.deletePart(selectedPart);
             }
         }
-
     }
 
     public void onActionSearchProducts(ActionEvent event) {
@@ -199,10 +188,6 @@ public class MainFormController implements Initializable {
             String searched = productSearchTxt.getText();
             ObservableList<Product> product = Inventory.lookupProduct(searched);
             productsTable.setItems(product);
-        }
-        //Informs and instructs the user of their error.
-        if(selectedPart == null) {
-            alertDisplays(4);
         }
     }
 

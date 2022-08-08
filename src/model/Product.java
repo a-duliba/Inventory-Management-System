@@ -5,11 +5,13 @@ import javafx.collections.ObservableList;
 
 public class Product {
 
+    //PRIVATE VARIABLES
     private ObservableList <Part> associatedParts = FXCollections.observableArrayList();
     private int id, stock, min, max;
     private String name;
     private double price;
 
+    //CONSTRUCTOR
     public Product(int id, int stock, int min, int max, String name, double price) {
         this.id = id;
         this.stock = stock;
@@ -19,6 +21,7 @@ public class Product {
         this.price = price;
     }
 
+    //SETTERS - GETTERS
     public int getId() {
         return id;
     }
@@ -67,16 +70,24 @@ public class Product {
         this.price = price;
     }
 
+    public ObservableList<Part> getAllAssociatedParts() {
+        return associatedParts;
+    }
+
+    //Adds all associated parts to an observable list
     public void addAssociatedPart(Part part) {
         associatedParts.add(part);
     }
 
-    public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
-        return associatedParts.remove(selectedAssociatedPart);
-    }
+    //METHODS
 
-    public ObservableList<Part> getAllAssociatedParts() {
-        return associatedParts;
+    //Deletes the associated part the user selects from the associated parts observable list.
+    public boolean deleteAssociatedPart(Part selectedAssociatedPart) {
+        if (associatedParts.contains(selectedAssociatedPart)) {
+            associatedParts.remove(selectedAssociatedPart);
+            return true;
+        }
+        return false;
     }
 
 }
