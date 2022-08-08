@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModifyPartFormController">
+    <children>
+        <GridPane layoutX="50.0" layoutY="116.0" prefHeight="300.0" prefWidth="500.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="ID">
+                    <padding>
+                        <Insets left="50.0" />
+                    </padding></Label>
+                <Label text="Name" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets left="50.0" />
+                    </GridPane.margin></Label>
+                <Label text="Inv" GridPane.rowIndex="2">
+                    <GridPane.margin>
+                        <Insets left="50.0" />
+                    </GridPane.margin></Label>
+                <Label text="Price/Cost" GridPane.rowIndex="3">
+                    <GridPane.margin>
+                        <Insets left="50.0" />
+                    </GridPane.margin></Label>
+                <Label text="Max" GridPane.rowIndex="4">
+                    <GridPane.margin>
+                        <Insets left="50.0" />
+                    </GridPane.margin></Label>
+                <Label fx:id="argLabel" text="Machine ID" GridPane.rowIndex="5">
+                    <GridPane.margin>
+                        <Insets left="50.0" />
+                    </GridPane.margin></Label>
+                <TextField fx:id="idTxt" GridPane.columnIndex="1">
+                    <GridPane.margin>
+                        <Insets />
+                    </GridPane.margin></TextField>
+                <TextField fx:id="nameTxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="invTxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="priceTxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="maxTxt" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <TextField fx:id="argTxt" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <Label text="Min" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                    <padding>
+                        <Insets left="75.0" />
+                    </padding>
+                </Label>
+                <TextField fx:id="minTxt" prefHeight="25.0" prefWidth="105.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            </children>
+        </GridPane>
+        <HBox alignment="TOP_CENTER" layoutY="380.0" prefHeight="100.0" prefWidth="600.0">
+            <children>
+                <Button fx:id="saveBtn" mnemonicParsing="false" onAction="#onActionSaveBtn" text="Save">
+                    <HBox.margin>
+                        <Insets left="120.0" top="10.0" />
+                    </HBox.margin>
+                </Button>
+                <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#onActionCancelBtn" text="Cancel">
+                    <HBox.margin>
+                        <Insets left="15.0" top="10.0" />
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+          <Label layoutX="50.0" layoutY="66.0" text="Modify Part">
+              <font>
+                  <Font name="System Bold" size="14.0" />
+              </font>
+          </Label>
+      <HBox disable="true" layoutX="167.0" layoutY="66.0" prefHeight="100.0" prefWidth="408.0">
+         <children>
+                <RadioButton fx:id="inHouseRadioBtn" mnemonicParsing="false" onAction="#onActionInHouseRadioBtnSelected" text="In-House">
+               <toggleGroup>
+                  <ToggleGroup fx:id="radioBtnTgl" />
+               </toggleGroup></RadioButton>
+                <RadioButton fx:id="outsourcedRadioBtn" mnemonicParsing="false" onAction="#onActionOutsourcedRadioBtnSelected" text="Outsourced" toggleGroup="$radioBtnTgl">
+               <padding>
+                  <Insets left="70.0" />
+               </padding></RadioButton>
+         </children>
+      </HBox>
+    </children>
+    <padding>
+        <Insets left="100.0" />
+    </padding>
+</Pane>
