@@ -21,34 +21,74 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** @author Andrew Duliba : 08/09/2022 C482 SOFTWARE-1 Inventory Management System. **/
+
 public class ModifyProductFormController implements Initializable {
 
     //VARIABLES, initialized for use in methods.
 
+    /** Stage variable, type Stage.
+     *
+     * Sets the stage for the scene. **/
     Stage stage;
+
+    /** Scene variables, type Parent.
+     *
+     * Sets the scene for the user to view. **/
     Parent scene;
+
+    /** Observable List called ascParts of type Part. **/
     ObservableList<Part> ascParts = FXCollections.observableArrayList();
+
+    /** Product selectedProduct variable **/
     Product selectedProduct;
 
     //FXML VARIABLES
 
     //initialized and mapped to their appropriate classes for loading data.
+    /** Product Part and Associated Parts table views. **/
     @FXML
     public TableView<Part> allPartsTable, ascPartsTable;
+
+    /** Part ID, Name, Inventory, Price, Max, Min, and Search Text Fields. **/
     @FXML
     public TextField idTxt, nameTxt, invTxt, priceTxt, maxTxt, minTxt, searchTxt;
+
+    /** Product Part TableColumn Part ID and Inventory.
+     *
+     * Associated Part TableColumn Part ID and Inventory.
+     *
+     * **/
     @FXML
     public TableColumn<Part, Integer> allPartIDCol, ascPartIDCol, allPartInvCol, ascPartInvCol;
+
+    /** Product Part TableColumn Part Name.
+     *
+     * Associated Part TableColumn Part Name.
+     *
+     * **/
     @FXML
     public TableColumn<Part, String> allPartNameCol, ascPartNameCol;
+
+    /** Product Part TableColumn Part Price.
+     *
+     * Associated Part TableColumn Part Price.
+     *
+     * **/
     @FXML
     public TableColumn<Part, Double> allPartPriceCol, ascPartPriceCol;
+
+    /** Part add associated, remove associated, save, and cancel buttons. **/
     @FXML
     public Button addAscPartBtn, removeAscPartBtn, saveProductBtn, cancelBtn;
 
     //METHODS
 
     //use of DisplayMainForm(event) method allows for the ability to open the MainFormController view.
+    /** Returns the user to the Main Form View.
+     *
+     * @param event Main Form displayed.
+     * @throws IOException **/
     public void DisplayMainForm(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
@@ -57,18 +97,29 @@ public class ModifyProductFormController implements Initializable {
     }
 
     //alerts user if inventory is outside the scope of the min/max.
+    /** Tells the user that the inventory level must be between the min and max values.
+     *
+     * @param min Minimum value for part.
+     * @param max Maximum value for part.
+     * @param stock Inventory level for the part.
+     * @return Boolean telling user if the inventory value is valid or not. **/
     private boolean inventoryIsValid(int min, int max, int stock) {
         boolean valid = true;
 
         if (stock > max || stock < min) {
             valid = false;
             alertDisplays(2);
-        }
-        return valid;
+        } return valid;
     }
 
     //alerts user if their min value is greater than their max value.
+    /** Tells the user if the min value is invalid.
+     *
+     * @param min Minimum value for part.
+     * @param max Maximum value for part.
+     * @return Boolean telling user if the min is valid or not. **/
     private boolean minIsValid(int min, int max) {
+
         boolean valid = true;
 
         if (min <= 0 || min >= max) {
@@ -79,6 +130,12 @@ public class ModifyProductFormController implements Initializable {
     }
 
     //Allows me to use alertDisplays(case) on previous onaction events. Gives 5 different cases for user errors and instructs them on the error.
+    /** Initializes all error messages.
+     *
+     * Based on the users incorrect input, an error message will be displayed instructing the user instead of crashing the program.
+     *
+     * @param alertType Alert message. **/
+
     private void alertDisplays(int alertType) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
@@ -109,13 +166,19 @@ public class ModifyProductFormController implements Initializable {
                 break;
             case 5:
                 alert.setTitle("Error");
-                alert.setHeaderText("Part Was Not Highlighted");
+                alert.setHeaderText("Part Was Not selected");
                 alert.setContentText("Please select a part.");
                 alert.showAndWait();
                 break;
         }
     }
-    //Initializes and populates part and product tables with data. Also allows user to pick from all parts and add which parts are a part of the modifiable product.
+
+    /** Initializes and populates part and product tables with values from selected part.
+     *
+     * The selected part and its values that were clicked on in the MainFormController view carry over to this view and populates the text fields to be modified and saved.
+     *
+     * @param url
+     * @param resourceBundle .**/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -144,7 +207,11 @@ public class ModifyProductFormController implements Initializable {
 
     //ONACTION EVENTS
 
-    //Searches for Id that is entered with numbers, If numbers not used, searches for Name that is entered with letters.
+    /** Search bar for the parts table.
+     *
+     * Searches for an ID that is entered with numbers, If numbers are not used, searches for letter that are entered that match Product name values.
+     *
+     * @param event Search Bar clicked and data inputted. **/
     @FXML
     public void onActionSearchProducts(ActionEvent event) {
 
@@ -158,7 +225,13 @@ public class ModifyProductFormController implements Initializable {
         }
     }
 
-    //When add button clicked, the selected product from addProducts table will be added to the ascProducts table
+    /** Adds a part to the associated parts table.
+     *
+     * When the add button is clicked, the selected product from addProducts table will be added to the associated parts table
+     *
+     * RUNTIME ERROR: If product was not selected, the application will display the appropriate error message with instructions on how to fix the error.
+     *
+     * @param event Add button clicked. **/
     @FXML
     void onActionAddProductBtn(ActionEvent event) {
 
@@ -172,7 +245,13 @@ public class ModifyProductFormController implements Initializable {
         }
     }
 
-    //When clicked, saves users inputted data, but only if there is no error. After saved, MainFormController view displays with newly saved product.
+    /** When clicked, the users inputted data will be saved, but only if there is no error.
+     *
+     * After Product has been saved, the MainFormController view is displayed with newly saved Product.
+     *
+     * RUNTIME ERROR: If the text fields are empty or incorrect values are added, the application will display the appropriate error message with instructions on how to fix the error.
+     *
+     * @param event Save button clicked. **/
     @FXML
     void onActionSaveProductBtn(ActionEvent event) throws IOException {
 
@@ -183,21 +262,38 @@ public class ModifyProductFormController implements Initializable {
             int min = Integer.parseInt(minTxt.getText());
             String name = nameTxt.getText();
             Double price = Double.valueOf(priceTxt.getText());
+            Boolean productAdded = false;
+
             if (minIsValid(min, max) && inventoryIsValid(min, max, inv)) {
+
                 Product product = new Product(id, inv, min, max, name, price);
+
+                selectedProduct.getId();
+
                 for (Part part : ascParts) {
                     product.addAssociatedPart(part);
                 }
-                product.setId(Inventory.getTempProductId());
                 Inventory.addProduct(product);
+                productAdded = true;
+            }
+
+            if (productAdded) {
+                Inventory.deleteProduct(selectedProduct);
                 DisplayMainForm(event);
             }
+
         } catch(Exception e) {
             alertDisplays(1);
         }
     }
 
-    //If user selects a part and clicks the delete button, the selected part is deleted. If not, the user is given an alert and is instructed on their error.
+    /** When clicked, the users selected part will be deleted, but only if a part is selected
+     *
+     * When the part is selected and the remove button is clicked, a dialog box will display confirming if the user wants to remove the associated part.
+     *
+     * RUNTIME ERROR: If part was not selected, the application will display the appropriate error message with instructions on how to fix the error.
+     *
+     * @param event Remove Associated Part button clicked. **/
     @FXML
     void onActionRemoveAscPart(ActionEvent event) {
 
@@ -218,7 +314,12 @@ public class ModifyProductFormController implements Initializable {
         }
     }
 
-    //When the cancel button is clicked it opens the MainFormController view.
+    /** Returns the user to the MainFormController view .
+     *
+     * When the cancel button is clicked it opens the MainFormController view.
+     *
+     * @param event Cancel button clicked.
+     * @throws IOException **/
     @FXML
     void onActionCancelBtn(ActionEvent event) throws IOException {
         DisplayMainForm(event);

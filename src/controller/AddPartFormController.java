@@ -16,38 +16,66 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/** @author Andrew Duliba : 08/09/2022 C482 SOFTWARE-1 Inventory Management System. */
 
 public class AddPartFormController implements Initializable {
 
     //VARIABLES, initialized for use in methods.
 
+    /** Stage variable, type Stage.
+     *
+     * Sets the stage for the scene. **/
     Stage stage;
+
+    /** Scene variables, type Parent.
+     *
+     * Sets the scene for the user to view. **/
     Parent scene;
 
     //FXML VARIABLES
 
     //initialized and mapped to their appropriate classes for loading data.
+    /** Radio buttons toggle group. **/
     @FXML
     public ToggleGroup radioBtnTgl;
+
+    /** In-House radio button and Outsourced radio buttons. **/
     @FXML
     public RadioButton inHouseRadioBtn, outsourcedRadioBtn;
+
+    /** Part ID, Name, Inventory, Price, Max, Min, and Argument Text Fields. **/
     @FXML
     public TextField idTxt, nameTxt, invTxt, priceTxt, maxTxt, minTxt, argTxt;
+
+    /** In-House and Company Name argument Label. **/
     @FXML
     public Label argLabel;
+
+    /** Part Save and cancel buttons. **/
     @FXML
     public Button saveBtn, cancelBtn;
 
     //METHODS
 
     //use of DisplayMainForm(event) method allows for the ability to open the MainFormController view.
+    /** Returns the user to the Main Form View.
+     *
+     * @param event Main Form displayed.
+     * @throws IOException **/
     public void DisplayMainForm(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/MainForm.fxml"));
         stage.setScene(new Scene(scene));//sets up the scene
         stage.show();
     }
+
     //alerts user if inventory is outside the scope of the min/max.
+    /** Tells the user that the inventory level must be between the min and max values.
+     *
+     * @param min Minimum value for part.
+     * @param max Maximum value for part.
+     * @param stock Inventory level for the part.
+     * @return Boolean telling user if the inventory value is valid or not. **/
     private boolean inventoryIsValid(int min, int max, int stock) {
         boolean valid = true;
 
@@ -58,6 +86,11 @@ public class AddPartFormController implements Initializable {
     }
 
     //alerts user if their min value is greater than their max value.
+    /** Tells the user if the min value is invalid.
+     *
+     * @param min Minimum value for part.
+     * @param max Maximum value for part.
+     * @return Boolean telling user if the min is valid or not. **/
     private boolean minIsValid(int min, int max) {
 
         boolean valid = true;
@@ -68,7 +101,13 @@ public class AddPartFormController implements Initializable {
         }
         return valid;
     }
+
     //Allows me to use alertDisplays(case) on previous onaction events. Gives 4 different cases for user errors and instructs them on the error.
+    /** Initializes all error messages.
+     *
+     * Based on the users incorrect input, an error message will be displayed instructing the user instead of crashing the program.
+     *
+     * @param alertType Alert message. **/
     private void alertDisplays(int alertType) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
 
@@ -100,7 +139,10 @@ public class AddPartFormController implements Initializable {
         }
     }
 
-    //Initializes data.
+    /** Initializes part and product tables.
+     *
+     * @param url
+     * @param resourceBundle .**/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -108,7 +150,16 @@ public class AddPartFormController implements Initializable {
 
     //ONACTION EVENTS
 
-    //When clicked, saves users inputted data, but only if there is no error. Creates part based on radio button clicked and adds to appropriate class. After saved, MainFormController view displays with newly saved part.
+    /** When clicked, the users inputted data will be saved, but only if there is no error.
+     *
+     * Creates part based on the radio button that is clicked and adds the part to its appropriate class.
+     *
+     * After part has been saved, the MainFormController view is displayed with newly saved part.
+     *
+     * RUNTIME ERROR: If the text fields are empty or incorrect values are added, the application will display the appropriate error message with instructions on how to fix the error.
+     *
+     * @param event Save button clicked.
+     * @throws IOException**/
     @FXML
     void onActionSaveBtn(ActionEvent event) throws IOException {
 
@@ -152,13 +203,20 @@ public class AddPartFormController implements Initializable {
         }
 }
 
-    //When the cancel button is clicked it opens the MainFormController view.
+    /** Returns the user to the MainFormController view .
+     *
+     * When the cancel button is clicked it opens the MainFormController view.
+     *
+     * @param event Cancel button clicked.
+     * @throws IOException **/
     @FXML
     void onActionCancelBtn(ActionEvent event) throws IOException {
         DisplayMainForm(event);
     }
 
-    //When the inhouse radio button is clicked machine ID label is displayed where machineId class data can be entered and saved.
+    /** When the In-house radio button is clicked, the machine ID label is displayed so the user can input and save data pertaining to machineId variable.
+     *
+     * @param event In-House radio button clicked. **/
     @FXML
     void onActionInHouseRadioBtnSelected(ActionEvent event) {
         if (inHouseRadioBtn.isSelected()) {
@@ -166,7 +224,9 @@ public class AddPartFormController implements Initializable {
         }
     }
 
-    //When the outsourced radio button is clicked company name label is displayed where companyName class data can be entered and saved.
+    /** When the Outsourced radio button is clicked, the company name label is displayed so the user can input and save data pertaining to companyName variable.
+     *
+     * @param event Outsourced radio button clicked. **/
     @FXML
     void onActionOutsourcedRadioBtnSelected(ActionEvent event) {
         if (outsourcedRadioBtn.isSelected()) {

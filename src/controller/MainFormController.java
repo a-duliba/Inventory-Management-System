@@ -17,53 +17,106 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/** @author Andrew Duliba : 08/09/2022 C482 SOFTWARE-1 Inventory Management System. **/
+
 public class MainFormController implements Initializable {
 
     //VARIABLES, initialized for use in methods.
 
+    /** Stage variable, type Stage.
+     *
+     * Sets the stage for the scene. **/
     Stage stage;
+
+    /** Scene variables, type Parent.
+     *
+     * Sets the scene for the user to view. **/
     Parent scene;
+
+    /** Part selectedPart variable **/
     private static Part selectedPart;
+
+    /** Product selectedProduct variable **/
     private static Product selectedProduct;
 
     //FXML VARIABLES
 
     //initialized and mapped to their appropriate classes for loading data.
+
+    /** Part table view **/
     @FXML
     public TableView<Part> partsTable;
+
+    /** Products table view. **/
     @FXML
     public TableView<Product> productsTable;
+
+    /** Parts ID and Inventory table columns. **/
     @FXML
     public TableColumn<Part, Integer> partIDCol, partInvCol;
+
+    /** Products ID and Inventory table columns. **/
     @FXML
     public TableColumn<Product, Integer> productIDCol, productInvCol;
+
+    /** Parts Name table columns. **/
     @FXML
     public TableColumn<Part, String> partNameCol;
+
+    /** Products Name table columns. **/
     @FXML
     public TableColumn<Product, String> productNameCol;
+
+    /** Parts Price table columns. **/
     @FXML
     public TableColumn<Part, Double> partPriceCol;
+
+    /** Products Price table columns. **/
     @FXML
     public TableColumn<Product, Double> productPriceCol;
+
+    /** Parts and Products search bar TextFields. **/
     @FXML
     public TextField partSearchTxt, productSearchTxt;
+
+    /** Add, Modify, and Delete buttons for Parts Table. **/
     @FXML
     public Button addPartBtn, modifyPartBtn, deletePartBtn;
+
+    /** Add, Modify, and Delete buttons for Products Table. **/
     @FXML
     public Button addProductBtn, modifyProductBtn, deleteProductBtn;
+
+    /** Exit button. **/
     @FXML
     public Button exitBtn;
 
     //METHODS
+
+    /** Gets selected part.
+     *
+     * Grabs the part that is selected and returns it.
+     *
+     * @return SelectedPart. **/
     public static Part getSelectedPart() {
         return selectedPart;
     }
 
+    /** Gets selected product.
+     *
+     * Grabs the product that is selected and returns it.
+     *
+     * @return SelectedProduct. **/
     public static Product getSelectedProduct() {
         return selectedProduct;
     }
 
     //Allows me to use alertDisplays(case) on previous onaction events. Gives 4 different cases for user errors and instructs them on the error.
+    /** Initializes all error messages.
+     *
+     * Based on the users incorrect input, an error message will be displayed instructing the user instead of crashing the program.
+     *
+     * @param alertType Alert message. **/
     private void alertDisplays(int alertType) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         Alert alertInfo = new Alert(Alert.AlertType.INFORMATION);
@@ -94,7 +147,10 @@ public class MainFormController implements Initializable {
         }
     }
 
-    //Initializes and populates part and product tables with data.
+    /** Initializes and populates part and product tables with preloaded values.
+     *
+     * @param url
+     * @param resourceBundle .**/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -115,6 +171,11 @@ public class MainFormController implements Initializable {
 
     //ONACTION EVENTS
 
+    /** Search bar for the parts table.
+     *
+     * Searches for an ID that is entered with numbers, If numbers are not used, searches for letter that are entered that match Product name values.
+     *
+     * @param event Search Bar clicked and data inputted. **/
     @FXML
     public void onActionSearchParts(ActionEvent event) {
 
@@ -131,7 +192,10 @@ public class MainFormController implements Initializable {
         }
     }
 
-    //When the add button is clicked it opens the AddPartFormController view.
+    /** When clicked AddPartFormController view is opened.
+     *
+     * @param event Add Part Form displayed.
+     * @throws IOException **/
     @FXML
     void onActionAddPartBtn(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -140,7 +204,12 @@ public class MainFormController implements Initializable {
         stage.show();
     }
 
-    //If user selects a part and clicks the modify button, the ModifyPartFormController view opens. If not, the user is given an alert and is instructed on their error.
+    /** When clicked ModifyPartFormController view is opened, but only if a part is selected.
+     *
+     * RUNTIME ERROR: If a part was not selected, the application will display the appropriate error message with instructions on how to fix the error.
+     *
+     * @param event Add Part Form displayed.
+     * @throws IOException **/
     @FXML
     void onActionModifyPartBtn(ActionEvent event) throws IOException {
 
@@ -157,6 +226,13 @@ public class MainFormController implements Initializable {
     }
 
     //If user selects a part and clicks the delete button, the selected part is deleted. If not, the user is given an alert and is instructed on their error.
+    /** When clicked, the users selected part will be deleted, but only if a part is selected
+     *
+     * When the part is selected and the delete button is clicked, a dialog box will display confirming if the user wants to delete the part.
+     *
+     * RUNTIME ERROR: If a part was not selected, the application will display the appropriate error message with instructions on how to fix the error.
+     *
+     * @param event Delete button clicked. **/
     @FXML
     void onActionDeletePartBtn(ActionEvent event) {
 
@@ -176,6 +252,11 @@ public class MainFormController implements Initializable {
         }
     }
 
+    /** Search bar for the products table.
+     *
+     * Searches for an ID that is entered with numbers, If numbers are not used, searches for letter that are entered that match Product name values.
+     *
+     * @param event Search Bar clicked and data inputted. **/
     public void onActionSearchProducts(ActionEvent event) {
 
         //Searches for Id that is entered with numbers.
@@ -191,7 +272,10 @@ public class MainFormController implements Initializable {
         }
     }
 
-    //When the add button is clicked it opens the AddProductFormController view.
+    /** When clicked AddProductFormController view is opened.
+     *
+     * @param event Add Product Form displayed.
+     * @throws IOException **/
     @FXML
     void onActionAddProductBtn(ActionEvent event) throws IOException {
         stage = (Stage)((Button)event.getSource()).getScene().getWindow();
@@ -200,7 +284,12 @@ public class MainFormController implements Initializable {
         stage.show();
     }
 
-    //If user selects a product and clicks the modify button, the ModifyProductFormController view opens. If not, the user is given an alert and is instructed on their error.
+    /** When clicked ModifyProductFormController view is opened, but only if a part is selected.
+     *
+     * RUNTIME ERROR: If a product was not selected, the application will display the appropriate error message with instructions on how to fix the error.
+     *
+     * @param event Add Product Form displayed.
+     * @throws IOException **/
     @FXML
     void onActionModifyProductBtn(ActionEvent event) throws IOException {
 
@@ -216,7 +305,13 @@ public class MainFormController implements Initializable {
         }
     }
 
-    //If user selects a product and clicks the delete button, the selected product is deleted. If not, the user is given an alert and is instructed on their error.
+    /** When clicked, the users selected product will be deleted, but only if a product is selected
+     *
+     * When the product is selected and the delete button is clicked, a dialog box will display confirming if the user wants to delete the product.
+     *
+     * RUNTIME ERROR: If a product was not selected, the application will display the appropriate error message with instructions on how to fix the error.
+     *
+     * @param event Delete button clicked. **/
     @FXML
     void onActionDeleteProductBtn(ActionEvent event) {
 
@@ -244,7 +339,11 @@ public class MainFormController implements Initializable {
 
     }
 
-    //When the exit button is clicked, the application is closed.
+    /** Exists the application
+     *
+     * When the exit button is clicked, the application will close.
+     *
+     * @param event exist button clicked. **/
     @FXML
     public void onActionExit(ActionEvent event) {
         System.exit(0);
